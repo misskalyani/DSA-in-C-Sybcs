@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+int compcout;
 void accept(int a[],int n)
 {
 	int i;
@@ -20,25 +21,25 @@ void disp(int a[],int n)
 }
 void merge(int a[],int s,int mid,int e)
 {
-	int b[30],i,j,k,n;
+	int b[30],i,j,k;
 	i=s;
 	j=mid+1;
 	k=0;
 	while((i<=mid)&&(j<=e))
 	{
-		if(a[i]<a[j])
-		b[k++]=a[i++];
+		compcout++;
+		if(a[i]<=a[j])
+			b[k++]=a[i++];
 		else
-		b[k++]=a[j++];
+			b[k++]=a[j++];
 	}
 	while(i<=mid)
-		b[k++]=a[i++];
+		b[k++]=a[i++];compcout++;
 	while(j<=e)
-		b[k++]=a[j++];
- 	printf("sorted numbers are::");
-	for(i=0;i<n;i++)
+		b[k++]=a[j++];compcout++;
+	for(i=s,k=0;i<=e;i++,k++)
 	{
-		printf("\t%d\t",b[i]);
+		a[i]=b[k];
 	}
 }
 void divide(int a[],int s,int e)
@@ -60,4 +61,7 @@ int main()
 	accept(a,n);
 	disp(a,n);
 	divide(a,0,n-1);
+	printf("\nSorted Order :: ");
+	disp(a,n);
+	printf("\nTotal Number Of Comparison =%d",compcout);
 }
